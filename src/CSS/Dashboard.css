@@ -8,6 +8,7 @@
 .menutextStyle {
   font-size: 18px;
   font-weight: bold;
+  color: white;
 }
 
 .hrStyle {
@@ -46,7 +47,7 @@
   height: fit-content;
 }
 
-.sampleBox{
+.sampleBox {
   height: 350px;
   overflow-y: scroll;
 }
@@ -57,8 +58,8 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .sampleBox {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @media screen and (min-device-width: 640px) and (max-device-width: 991px) {
@@ -76,5 +77,71 @@
 @media screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .menuBar {
     text-align: center;
+  }
+}
+
+/* All the items Style : */
+.itemBox {
+  border: 3px solid white;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.itemName {
+  text-align: center;
+  color: black;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.itemImg {
+  height: 150px;
+  width: 150px;
+  align-self: center;
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.itemCard:hover {
+  box-shadow: 2px 2px 10px 10px black, inset 0px 0px 5px 10px wheat;
+}
+
+.errorImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* For Desktop View */
+@media screen and (min-width: 1024px) {
+  .errorImage {
+    width: 25%;
+  }
+}
+
+/* For Tablet View */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .errorImage {
+    width: 25%;
+  }
+}
+
+@media screen and (min-device-width: 640px) and (max-device-width: 768px) {
+  .errorImage {
+    width: 40%;
+  }
+}
+
+@media screen and (min-device-width: 480px) and (max-device-width: 640px) {
+  .errorImage {
+    width: 50%;
+  }
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .errorImage {
+    width: 60%;
   }
 }

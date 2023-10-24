@@ -1,10 +1,40 @@
 import React from 'react'
-import ganpat_icon from "../images/Ganpat_Icon.png";
-import { Link } from 'react-router-dom';
+import ganpat_icon from "../Images/Ganpat_Icon.png";
 
-function Navbar() {
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+export default function Navbar() {
+    const fixednavbarStyle = {
+        // "position": "fixed",
+        // "top": "0px",
+        "width": "100%",
+        "zIndex": "1",
+        "boxShadow": "0px 0px 9px 5px black",
+    }
+
+    let location = useLocation();
+
+    let navigateTo = useNavigate();
+
+    React.useEffect(() => {
+        // Logging for checking
+        // console.log("Getting Location : ",location);
+        // console.log("Getting Location Pathname : ",location.pathname);
+    }, [location]);
+
+    const logoutUser = () => {
+        localStorage.removeItem("token");
+        navigateTo("/");
+        console.log("Signing");
+    }
+
+    const aboutUser = () => {
+        navigateTo("/user");
+    }
+
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" style={fixednavbarStyle}>
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/"><strong> <img src={ganpat_icon} width={"30px"} alt='Ganpat Logo'/> ConnectWithGUNI</strong></Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +59,12 @@ function Navbar() {
                             <Link className="nav-link text-black" aria-current="page" to="https://www.ganpatuniversity.ac.in/contact-us">Contact Us</Link>
                         </li>
                     </ul>
-                    <Link className="nav-link text-black" aria-current="page" to="/">
+                    {/* TODO : Add Dark Mode */}
+                    {/* <Link className="nav-link text-black" aria-current="page" to="/">
                         <i className="fa-solid fa-circle-half-stroke px-lg-2 px-md-1 px-0" style={{ "color": "#000000" }}></i> Dark Mode
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </nav>
     )
 }
-
-export default Navbar
