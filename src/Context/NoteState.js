@@ -9,12 +9,10 @@ const NoteState = (props) => {
     // Getting the NOTES from the DATABASE :
     const mynotes = [];
 
-
     // const {Notes,updateNotes} = useState(mynotes); ===========>> LARGE MISTAKE !!!
     const [userNotes, setuserNotes] = useState(mynotes);
 
     const [userInfo, setuserInfo] = useState({});
-    const [subjects, setSubjects] = useState([]);
 
     // Function to set the user and update the user
     const [user, setUser] = useState({ "_id": "", "name": "", "email": "", "date": "", "__v": 0 });
@@ -42,7 +40,7 @@ const NoteState = (props) => {
         // ✅ Done TODO : Make an API Call Here !
 
         // Adding the API Call to add the notes into the Database
-        const response = await fetch(`${host}/api/notes/addnote`, {
+        const response = await fetch(`${host}/api/${sessionStorage.getItem("role")}/notes/addnote`, {
             method: "POST", // As fetchallnotes is a GET method
 
             headers: {
@@ -50,7 +48,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             body: JSON.stringify({ title, description, tags })
@@ -101,7 +99,7 @@ const NoteState = (props) => {
         console.log(tags);
         // console.log(JSON.stringify({title,description,tags}))
 
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+        const response = await fetch(`${host}/api/${sessionStorage.getItem("role")}/notes/updatenote/${id}`, {
             method: "PUT", // As editnote is a PUT method
 
             headers: {
@@ -109,7 +107,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             body: JSON.stringify({ title, description, tags })
@@ -158,7 +156,7 @@ const NoteState = (props) => {
 
         // ✅ Done TODO : Make an API Call Here !
         // Adding the API Call to delete the notes from the database
-        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+        const response = await fetch(`${host}/api/${sessionStorage.getItem("role")}/notes/deletenote/${id}`, {
             method: "DELETE", // As deleteNote is a DELETE method
 
             headers: {
@@ -166,7 +164,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
@@ -203,7 +201,7 @@ const NoteState = (props) => {
         showAlert("Info", "Fetching Your Notes", "alert-info")
 
         // Adding the API Call to fetch all the notes
-        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+        const response = await fetch(`${host}/api/${sessionStorage.getItem("role")}/notes/fetchallnotes`, {
             method: "GET", // As fetchallnotes is a GET method
 
             headers: {
@@ -211,7 +209,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
@@ -237,7 +235,7 @@ const NoteState = (props) => {
         // Showing the Alert Message
         showAlert("Info", "Fetching Your Details", "alert-info")
 
-        console.log(localStorage.getItem("token"));
+        console.log(sessionStorage.getItem("token"));
 
         // Adding the API Call to fetch all the notes
         const response = await fetch(`${host}/api/auth/getuser`, {
@@ -248,7 +246,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
@@ -323,50 +321,13 @@ const NoteState = (props) => {
         return `${noteDate} ${noteTime}`;
     }
 
-    // Calling the API to get the User Info : 
-    const getUserInfo = async (token) => {
-
-        // API Call to fetch user data :
-        // Adding the API Call to fetch the user from the Database
-        const response = await fetch(`http://localhost:5000/api/auth/getuser`, {
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": token,
-            },
+    // Function to move the Page to Top
+    const moveToTop = () => {
+        // Move the Page to the top 
+        document.body.scrollIntoView({
+            behavior: "smooth",
         });
 
-        // Variable to handle the API Response
-        const userData = await response.json()
-
-        console.log(userData)
-
-        // Sending the response Data
-        return userData
-    }
-
-    // Calling the API to get all the subjects
-    const getAllSemSubject = async (sem) => {
-        // API Call to fetch user data :
-        // Adding the API Call to fetch the user from the Database
-        const response = await fetch(`http://localhost:5000/api/admin/fetch/allsemsubjects/${sem}`, {
-            method: "GET",
-
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        // Variable to handle the API Response
-        const results = await response.json()
-
-        console.log(results)
-
-        setSubjects(results.semesterSubjects)
-
-        // Sending the response Data
-        return results
     }
 
     return (
@@ -375,7 +336,7 @@ const NoteState = (props) => {
         // Passing the State and function which will update it
         // Here, {state,updateState} ===> {state:state, updateState:updateState}
         // Passing the userNotes and updateNotes in the context
-        <NoteContext.Provider value={{ subjects, setSubjects, userNotes, alert, user, showAlert, addNote, editNote, deleteNote, fetchAllNotes, fetchUser, formattedDateTime, setuserInfo, getUserInfo, getAllSemSubject }}>
+        <NoteContext.Provider value={{ userNotes, alert, user, showAlert, addNote, editNote, deleteNote, fetchAllNotes, fetchUser, formattedDateTime, setuserInfo, moveToTop }}>
             {props.children}
         </NoteContext.Provider>
     );

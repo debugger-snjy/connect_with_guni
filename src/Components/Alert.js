@@ -5,7 +5,7 @@ export default function Alert() {
 
     // Using the function to get the data from the context
     const contextData = useContext(NoteContext);
-    console.log(contextData.alert);
+    // console.log(contextData.alert);
 
     return (
         contextData.alert && <div id='myAlert' className={`alert ${contextData.alert.type} alert-dismissible fade show`} role="alert">

@@ -23,7 +23,7 @@ export default function Navbar() {
     }, [location]);
 
     const logoutUser = () => {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         navigateTo("/");
         console.log("Signing");
     }

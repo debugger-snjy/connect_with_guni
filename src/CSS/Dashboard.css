@@ -61,7 +61,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
+/* 
 @media screen and (min-device-width: 640px) and (max-device-width: 991px) {
   .menuBar {
     text-align: center;
@@ -78,7 +78,7 @@
   .menuBar {
     text-align: center;
   }
-}
+} */
 
 /* All the items Style : */
 .itemBox {
@@ -103,7 +103,8 @@
 }
 
 .itemCard:hover {
-  box-shadow: 2px 2px 10px 10px black, inset 0px 0px 5px 10px wheat;
+  box-shadow: 2px 2px 10px 10px black;
+  transform: scale(1.02);
 }
 
 .errorImage {
@@ -119,18 +120,27 @@
   .errorImage {
     width: 25%;
   }
-}
-
-/* For Tablet View */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .errorImage {
-    width: 25%;
+  .menuBar{
+    text-align: left;
   }
 }
 
-@media screen and (min-device-width: 640px) and (max-device-width: 768px) {
+/* For Tablet View */
+@media screen and (min-device-width: 990px) and (max-device-width: 1024px) {
+  .errorImage {
+    width: 25%;
+  }
+  .menuBar{
+    text-align: left;
+  }
+}
+
+@media screen and (min-device-width: 640px) and (max-device-width: 990px) {
   .errorImage {
     width: 40%;
+  }
+  .menuBar{
+    text-align: center;
   }
 }
 
@@ -138,10 +148,16 @@
   .errorImage {
     width: 50%;
   }
+  .menuBar{
+    text-align: center;
+  }
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .errorImage {
     width: 60%;
+  }
+  .menuBar{
+    text-align: center;
   }
 }

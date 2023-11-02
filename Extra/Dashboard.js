@@ -25,21 +25,21 @@ function Dashboard() {
 
                 <hr className='hrStyle' />
 
-                <div class="container-fluid text-center">
-                    <div class="row">
-                        <div class="mybox subjectBox col-12 col-md-12 col-lg-6 mt-3">
+                <div className="container-fluid text-center">
+                    <div className="row">
+                        <div className="mybox subjectBox col-12 col-md-12 col-lg-6 mt-3">
                             <Subjects />
                         </div>
 
-                        <div class="mybox attendanceBox col-12 col-md-12 col-lg-6 mt-3">
+                        <div className="mybox attendanceBox col-12 col-md-12 col-lg-6 mt-3">
                             <Attendence />
                         </div>
 
-                        <div class="mybox notesBox col-12 col-md-12 col-lg-6 mt-3">
+                        <div className="mybox notesBox col-12 col-md-12 col-lg-6 mt-3">
                             <Remainders />
                         </div>
 
-                        <div class="mybox recentlyAccessedBox col-12 col-md-12 col-lg-6 mt-3">
+                        <div className="mybox recentlyAccessedBox col-12 col-md-12 col-lg-6 mt-3">
                             <RecentlyAccessed />
                         </div>
 

@@ -45,7 +45,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             body: JSON.stringify({ title, description, tags })
@@ -104,7 +104,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             body: JSON.stringify({ title, description, tags })
@@ -161,7 +161,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
@@ -208,7 +208,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
@@ -234,7 +234,7 @@ const NoteState = (props) => {
         // Showing the Alert Message
         showAlert("Info", "Fetching Your Details", "alert-info")
 
-        console.log(localStorage.getItem("token"));
+        console.log(sessionStorage.getItem("token"));
 
         // Adding the API Call to fetch all the notes
         const response = await fetch(`${host}/api/auth/getuser`, {
@@ -245,7 +245,7 @@ const NoteState = (props) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
 
                 // Adding the auth-token hardcore till now !
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": sessionStorage.getItem("token"),
             },
 
             // No need of body as we will not pass anything in the body
