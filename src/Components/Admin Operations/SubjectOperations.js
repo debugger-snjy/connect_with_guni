@@ -295,7 +295,7 @@ function SubjectOperations() {
                                                         </table>
                                                     </div>
                                                     <div className="modal-footer bg-dark">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -341,8 +341,8 @@ function SubjectOperations() {
                                             </div>
                                         </div>
                                         <div className="modal-footer bg-dark">
-                                            <button type="button" className="btn btn-secondary" id="addSubjectCloseBtn" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddSubjectForm").reset(); }}>Close</button>
-                                            <button type="submit" className="btn btn-primary" onClick={AddSubjectAPI}>Submit Form</button>
+                                            <button type="button" className="btn btn-danger" id="addSubjectCloseBtn" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddSubjectForm").reset(); }}>Close</button>
+                                            <button type="submit" className="btn btn-success" onClick={AddSubjectAPI}>Submit Form</button>
                                         </div>
                                     </form>
 

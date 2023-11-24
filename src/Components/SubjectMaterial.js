@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react'
 import NoteContext from '../Context/NoteContext'
 
@@ -11,6 +11,11 @@ function SubjectMaterial() {
 
     // Access the subjectname from the URL params
     const { subjectname } = useParams();
+
+    let location = useLocation()
+
+    // Using the Context API
+    const contextData = useContext(NoteContext);
 
     const [materials, setMaterials] = useState([]);
 
@@ -46,6 +51,8 @@ function SubjectMaterial() {
     }
 
     useEffect(() => {
+
+        contextData.updateRecentlyAccessed(`Subject Material - ${subjectname}`, `${location.pathname}`);
 
         // Call the async function
         (async function () {

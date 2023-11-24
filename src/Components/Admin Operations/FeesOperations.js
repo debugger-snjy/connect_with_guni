@@ -315,7 +315,7 @@ function FeesOperations() {
                                                         </table>
                                                     </div>
                                                     <div className="modal-footer bg-dark">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,8 +373,8 @@ function FeesOperations() {
                                             </div>
                                         </div>
                                         <div className="modal-footer bg-dark">
-                                            <button type="button" className="btn btn-secondary" id="addFeesCloseBtn" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddFeesForm").reset(); }}>Close</button>
-                                            <button type="submit" className="btn btn-primary" onClick={AddFeesAPI}>Submit Form</button>
+                                            <button type="button" className="btn btn-danger" id="addFeesCloseBtn" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddFeesForm").reset(); }}>Close</button>
+                                            <button type="submit" className="btn btn-success" onClick={AddFeesAPI}>Submit Form</button>
                                         </div>
                                     </form>
 

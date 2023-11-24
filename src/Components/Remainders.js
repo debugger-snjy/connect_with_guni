@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import NoteContext from '../Context/NoteContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NavBreadcrumb from './NavBreadcrumb';
 import InternalMenuBar from './InternalMenuBar';
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
 
 function Remainders() {
+    
+    let location = useLocation()
+
     // Using the function to get the data from the context
     const contextData = useContext(NoteContext);
     // console.log(contextData);
@@ -26,9 +29,14 @@ function Remainders() {
         console.log(localStorage.getItem("token"));
         if (localStorage.getItem("token")) {
             fetchAllNotes()
+            
+            contextData.updateRecentlyAccessed('Remainders', `${location.pathname}`);
+
             console.log("Fetching");
         }
         else {
+            contextData.updateRecentlyAccessed('Remainders - Error Page', `${location.pathname}`);
+            
             navigateTo("/errorpage")
         }
 
@@ -183,7 +191,7 @@ function Remainders() {
                         <div className="modal-content bg-dark text-white">
                             <div className="modal-header">
                                 <h1 className="modal-title fs-5" id="exampleModalLabel">Edit Note </h1>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" style={{ filter : "invert(1)"}}></button>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" style={{ filter: "invert(1)" }}></button>
                             </div>
                             <div className="modal-body">
                                 {/* Adding the Form Fields to update the Note */}

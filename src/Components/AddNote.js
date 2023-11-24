@@ -95,7 +95,7 @@ export default function AddNote() {
 
                 <div className="d-flex" style={{ justifyContent: "center" }}>
                     {/* We will disable the Button if the title and description are having length less than 5 */}
-                    <button type="submit" className="btn btn-primary mt-3 addNoteBtn" onClick={handleAddNote} disabled={tempNote.title.length < 5 || tempNote.description.length < 5}>Add Note</button>
+                    <button type="submit" className="btn btn-success mt-3 addNoteBtn" onClick={handleAddNote} disabled={tempNote.title.length < 5 || tempNote.description.length < 5}>Add Note</button>
                 </div>
             </form>
 

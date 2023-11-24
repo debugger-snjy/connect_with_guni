@@ -16,7 +16,6 @@ function MaterialOperations() {
     let location = useLocation()
 
     const [MaterialRecords, setMaterialRecords] = useState([])
-    const [EditMaterialRecord, setEditMaterialRecord] = useState([])
 
     // Using the Context API
     const contextData = useContext(NoteContext);
@@ -146,90 +145,6 @@ function MaterialOperations() {
 
     }
 
-    // Function to Edit the Material Data : 
-    // const EditMaterialAPI = async (adminId) => {
-
-    //     const editMaterialForm = document.getElementById("EditMaterialForm")
-
-    //     // event.preventDefault(); // Prevent the form from submitting
-
-    //     // Access form fields by their Ids
-    //     const updatedusername = document.getElementById("updatedusername").value
-    //     // console.log(updatedusername)
-
-    //     const updateduseremail = document.getElementById("updateduseremail").value
-    //     // console.log(updateduseremail)
-
-    //     const updateduserpassword = document.getElementById("updateduserpassword").value
-    //     // console.log(updateduserpassword)
-
-    //     const updatedusergender = document.getElementById("updatedgenderMale").checked ? "male" : document.getElementById("updatedgenderFemale").checked ? "female" : "";
-    //     // console.log(updatedusergender)
-
-    //     const updateduserphone = document.getElementById("updateduserphone").value
-    //     // console.log(updateduserphone)
-
-    //     const updateduserrole = sessionStorage.getItem("role")
-    //     // console.log(updateduserrole)
-
-    //     if (updatedusername == "" || updateduseremail == "" || updateduserpassword == "" || updatedusergender == "" || updateduserphone == "") {
-    //         contextData.showAlert("Failed", "Some Fields are Empty !", "alert-danger")
-    //     }
-    //     else {
-    //         // Calling the Add Material API
-    //         const response = await fetch(`http://localhost:5000/api/admin/update/admin/${adminId}`, {
-    //             method: "PUT",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 password: updateduserpassword,
-    //                 gender: updatedusergender,
-    //                 phone: updateduserphone,
-    //                 email: updateduseremail,
-    //                 name: updatedusername,
-    //                 role: updateduserrole
-    //             })
-    //         });
-
-    //         // Variable to handle the API Response
-    //         const editMaterialResponse = await response.json()
-
-    //         console.log(editMaterialResponse)
-
-    //         if (editMaterialResponse.status === "success") {
-    //             // After a successful submission, hide the modal
-    //             contextData.showAlert("Success", editMaterialResponse.msg, "alert-success")
-    //             editMaterialForm.reset();
-    //             document.getElementById("editMaterialcloseBtn").click()
-
-    //             // Moving the Page to the Top
-    //             contextData.moveToTop()
-
-    //             // Fetching the Records Again for the Updated Records
-    //             FetchMaterialAPI()
-    //         }
-    //         else {
-    //             contextData.showAlert("Failed", editMaterialResponse.msg, "alert-danger")
-    //         }
-    //     }
-
-    // }
-
-    // const onChange = (event) => {
-
-    //     // Now, Getting the data that user will be adding and that will be saved on that spot when user add the data
-    //     setEditMaterialRecord({
-    //         ...EditMaterialRecord, // This will be the data that is already present
-    //         [event.target.name]: event.target.value
-    //         // Using the above line, it will ADD the data and OVERWRITE if already present
-    //         // Thus, when we write the title, then value of title will be the text that user will write
-    //     })
-
-    //     console.log("EditMaterial : ", EditMaterialRecord)
-
-    // }
-
     return (
         <>
 
@@ -289,7 +204,6 @@ function MaterialOperations() {
                                                 <div className='card-footer'>
                                                     <div className="row">
                                                         {/* No Edit Record is required  */}
-                                                        {/* <div className="col"><button className="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#editMaterialModel" onClick={() => { setEditMaterialRecord(material) }}><i className="fa-solid fa-pen" style={{ "color": "#ffffff" }}></i> Edit Material</button></div> */}
                                                         <div className="col"><button className="btn btn-dark w-100" onClick={() => { DeleteMaterialAPI(material._id) }}><i className="fa-solid fa-trash" style={{ "color": "#ffffff" }}></i> Delete Material</button></div>
                                                     </div>
                                                 </div>
@@ -325,7 +239,7 @@ function MaterialOperations() {
                                                         </table>
                                                     </div>
                                                     <div className="modal-footer bg-dark">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -367,68 +281,14 @@ function MaterialOperations() {
                                             </div>
                                         </div>
                                         <div className="modal-footer bg-dark">
-                                            <button type="button" id="AddMaterialFormCloseBtn" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddMaterialForm").reset(); }}>Close</button>
-                                            <button type="submit" className="btn btn-primary" onClick={AddMaterialAPI}>Submit Form</button>
+                                            <button type="button" id="AddMaterialFormCloseBtn" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddMaterialForm").reset(); }}>Close</button>
+                                            <button type="submit" className="btn btn-success" onClick={AddMaterialAPI}>Submit Form</button>
                                         </div>
                                     </form>
 
                                 </div>
                             </div>
                         </div>
-
-                        {/* Edit Material Model */}
-                        {/* <div className="modal fade dark-modal" id="editMaterialModel" tabIndex="-1" aria-labelledby="editMaterialModelLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div className="modal-content bg-dark text-light">
-                                    <div className="modal-header bg-dark text-light">
-                                        <h1 className="modal-title fs-5" id="editMaterialModelLabel">Edit Material Form</h1>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" id="editMaterialcloseBtn" aria-label="Close" onClick={() => { document.getElementById("AddMaterialForm").reset(); }}></button>
-                                    </div>
-
-                                    Form For Adding the Material Data
-                                    <form id='EditMaterialForm'>
-                                        <div className="modal-body">
-                                            <div className="mb-3">
-                                                <label htmlFor="updateduseremail" className="form-label">Email address</label>
-                                                <input type="email" className="form-control text-black fw-bold" id="updateduseremail" name="email" aria-describedby="emailHelp" onChange={onChange} value={EditMaterialRecord.email} required />
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="updateduserpassword" className="form-label">Password</label>
-                                                <input type="password" className="form-control text-black fw-bold" id="updateduserpassword" name="password" onChange={onChange} value={EditMaterialRecord.password} required />
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="updatedusername" className="form-label">Name</label>
-                                                <input type="text" className="form-control text-black fw-bold" id="updatedusername" name="name" onChange={onChange} value={EditMaterialRecord.name} required />
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="updatedusergender" className="form-label">Gender</label>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="gender" id="updatedgenderMale" value="male" onChange={onChange} checked={EditMaterialRecord.gender == "male" ? true : false} required />
-                                                    <label className="form-check-label" htmlFor="updatedgenderMale">
-                                                        Male
-                                                    </label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="gender" id="updatedgenderfemale" value="female" onChange={onChange} checked={EditMaterialRecord.gender == "female" ? true : false} required />
-                                                    <label className="form-check-label" htmlFor="updatedgenderfemale">
-                                                        Female
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="updateduserphone" className="form-label">Phone Number</label>
-                                                <input type="tel" className="form-control text-black fw-bold" id="updateduserphone" name="phone" maxLength={10} onChange={onChange} value={EditMaterialRecord.phone} required />
-                                            </div>
-                                        </div>
-                                        <div className="modal-footer bg-dark">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => { document.getElementById("EditMaterialForm").reset(); }}>Close</button>
-                                            <button type="button" className="btn btn-primary" onClick={() => { EditMaterialAPI(EditMaterialRecord._id) }}>Submit Form</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> */}
-
                     </div>
                 </div>
             </div>

@@ -26,6 +26,11 @@ import SubjectOperations from './Components/Admin Operations/SubjectOperations'
 import TimetableOperations from './Components/Admin Operations/TimetableOperations'
 import FeesOperations from './Components/Admin Operations/FeesOperations'
 import MarksheetOperations from './Components/Admin Operations/MarksheetOperations'
+import Timetable_Day from './Components/Timetable_Day';
+import Timetable from './Components/Timetable';
+import RecentAccessed from './Components/RecentAccessed';
+import AnnouncementOperations from './Components/Admin Operations/AnnouncementOperations';
+import ViewProfile from './Components/ViewProfile';
 
 function App() {
     let location = useLocation();
@@ -62,6 +67,16 @@ function App() {
                         <Route exact path={`/dashboard/student/remainders`} element={<Remainders />} />
                         <Route exact path={`/dashboard/student/facultyinfo`} element={<FacultyDetails />} />
                         <Route path={`/dashboard/student/materials/subject/:subjectname`} element={<SubjectMaterial />} />
+                        <Route exact path={`/dashboard/student/timetable`} element={<Timetable />} />
+                        <Route exact path={`/dashboard/student/timetable/monday`} element={<Timetable_Day day={0} />} />
+                        <Route exact path={`/dashboard/student/timetable/tuesday`} element={<Timetable_Day day={1} />} />
+                        <Route exact path={`/dashboard/student/timetable/wednesday`} element={<Timetable_Day day={2} />} />
+                        <Route exact path={`/dashboard/student/timetable/thrusday`} element={<Timetable_Day day={3} />} />
+                        <Route exact path={`/dashboard/student/timetable/friday`} element={<Timetable_Day day={4} />} />
+                        <Route exact path={`/dashboard/student/timetable/saturday`} element={<Timetable_Day day={5} />} />
+                        <Route exact path={`/dashboard/student/timetable/sunday`} element={<Timetable_Day day={6} />} />
+                        <Route exact path={`/dashboard/student/recently_accessed`} element={<RecentAccessed />} />
+                        <Route exact path={`/dashboard/student/profile`} element={<ViewProfile />} />
 
 
                         {/* Faculty Routes */}
@@ -71,6 +86,8 @@ function App() {
                         <Route exact path={`/dashboard/faculty/remainders`} element={<Remainders />} />
                         <Route exact path={`/dashboard/faculty/facultyinfo`} element={<FacultyDetails />} />
                         <Route path={`/dashboard/faculty/materials/subject/:subjectname`} element={<SubjectMaterial />} />
+                        <Route exact path={`/dashboard/faculty/recently_accessed`} element={<RecentAccessed />} />
+                        <Route exact path={`/dashboard/faculty/profile`} element={<ViewProfile />} />
 
                         {/* Admin Routes */}
                         <Route exact path='/dashboard/admin' element={<AdminDashboard />} />
@@ -83,7 +100,9 @@ function App() {
                         <Route exact path={'/dashboard/admin/timetable_operations'} element={<TimetableOperations />} />
                         <Route exact path={'/dashboard/admin/fees_operations'} element={<FeesOperations />} />
                         <Route exact path={'/dashboard/admin/marksheet_operations'} element={<MarksheetOperations />} />
-
+                        <Route exact path={`/dashboard/admin/recently_accessed`} element={<RecentAccessed />} />
+                        <Route exact path={`/dashboard/admin/profile`} element={<ViewProfile />} />
+                        <Route exact path={`/dashboard/admin/announcements`} element={<AnnouncementOperations />} />
 
                         {/* Define a "Error" route for unmatched routes */}
                         <Route path="*" element={<ErrorPage />} />

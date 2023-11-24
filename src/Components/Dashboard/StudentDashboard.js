@@ -7,9 +7,11 @@ import attendanceImg from "../../Images/contact1.png"
 import remainderImg from "../../Images/remainder.png"
 import facultyContactImg from "../../Images/contacts.png"
 import recentAccessImg from "../../Images/recentaccessed.png"
+import announcementImg from "../../Images/announcements.png"
 import NoteContext from '../../Context/NoteContext'
 import InternalMenuBar from '../InternalMenuBar'
 import NavBreadcrumb from '../NavBreadcrumb'
+import AnnouncementItem from '../Items/AnnouncementItem'
 
 function StudentDashboard() {
 
@@ -19,6 +21,8 @@ function StudentDashboard() {
 
     // Using the Context API
     const contextData = useContext(NoteContext);
+
+    const [announcements, setAnnouncements] = useState([])
 
     if (!sessionStorage.getItem("user") || !sessionStorage.getItem("token") || !sessionStorage.getItem("role") === "student") {
 
@@ -36,7 +40,7 @@ function StudentDashboard() {
         navigateTo(`${location.pathname}/materials`)
     }
 
-    // Function to move the user to materials page
+    // Function to move the user to Attendance page
     const openAttendance = () => {
         console.log("This is a Attendance Pages")
         navigateTo(`${location.pathname}/attendance`)
@@ -48,10 +52,27 @@ function StudentDashboard() {
         navigateTo(`${location.pathname}/remainders`)
     }
 
-    // Function to move the user to materials page
+    // Function to move the user to faculty info page
     const openFacultyInfo = () => {
         console.log("This is a Faculty Info Pages")
         navigateTo(`${location.pathname}/facultyinfo`)
+    }
+
+    // Function to move the user to timtable page
+    const openTimetable = () => {
+
+        const today = new Date();
+        let days = ["monday", "tuesday", "wednesday", "thrusday", "friday", "saturday", "sunday"];
+        let index = today.getUTCDay() - 1
+
+        console.log("This is a Faculty Info Pages")
+        navigateTo(`${location.pathname}/timetable/${days[index]}`)
+    }
+
+    // Function to move the user to Recent Accessed page
+    const openRecentAccessed = () => {
+        console.log("This is a material Pages")
+        navigateTo(`${location.pathname}/recently_accessed`)
     }
 
     // Adding the code that will run when the user will first open the page
@@ -65,7 +86,50 @@ function StudentDashboard() {
             navigateTo("/")
         }
 
+        contextData.updateRecentlyAccessed('Dashboard', `${location.pathname}`);
+        getAllAnnouncement()
+
     }, [])
+
+    // Function to get All the Announcements
+    const getAllAnnouncement = async () => {
+
+        let userSem, userDiv, userBatch;
+
+        if (sessionStorage.getItem("role") === "student") {
+            userSem = parseInt(JSON.parse(sessionStorage.getItem("user")).sem)
+            userDiv = JSON.parse(sessionStorage.getItem("user")).division
+            userBatch = JSON.parse(sessionStorage.getItem("user")).batch
+
+            userSem = userSem ? userSem : "all";
+            userDiv = isNaN(userDiv) ? userDiv : "all";
+            userBatch = isNaN(userBatch) ? userBatch : "all";
+        }
+        else {
+            userSem = "all"
+            userDiv = "all"
+            userBatch = "all"
+        }
+
+        // API Call to fetch user data :
+        // Adding the API Call to fetch the user from the Database
+        const response = await fetch(`http://localhost:5000/api/admin/fetch/announcement/sem/${userSem}/div/${userDiv}/batch/${userBatch}`, {
+            method: "GET", // As fetchallnotes is a GET method
+
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        // Variable to handle the API Response
+        const announcementResponse = await response.json()
+
+        console.log(announcementResponse)
+
+        // Setting the Data in the Variable
+        setAnnouncements(announcementResponse.announcements)
+    }
 
     return (
         <>
@@ -116,7 +180,7 @@ function StudentDashboard() {
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                            <div className="card itemCard">
+                            <div className="card itemCard" onClick={openTimetable}>
                                 <img src={timetableImg} className="card-img-top itemImg" alt="Materials" />
                                 <div className="card-body">
                                     <p className="card-text itemName" >Timetable</p>
@@ -124,7 +188,7 @@ function StudentDashboard() {
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
-                            <div className="card itemCard">
+                            <div className="card itemCard" onClick={openRecentAccessed}>
                                 <img src={recentAccessImg} className="card-img-top itemImg" alt="Materials" />
                                 <div className="card-body">
                                     <p className="card-text itemName" >Recently Accessed</p>
@@ -132,6 +196,33 @@ function StudentDashboard() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div className="my-4">
+                <hr className='hrStyle' />
+            </div>
+
+            <div className="container-fluid">
+                <div className="d-flex flex-wrap align-items-center justify-content-center">
+                    <div className="my-1">
+                        <img src={announcementImg} alt="Announcement" height={"100px"} />
+                    </div>
+                    <div className="my-1 flex-grow-1 announcementText text-black">Announcements ({announcements.length})</div>
+                </div>
+                <div className='allAnnouncements mt-3'>
+                    {
+                        announcements.map((announcement) => {
+
+                            console.log(announcement)
+
+                            return (
+                                <div key={announcement._id}>
+                                    <AnnouncementItem title={announcement.announcementTitle} description={announcement.announcementDescription} announcementBy={announcement.announcementBy} date={announcement.announcementDate} links={announcement.additionalLinks} />
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
 

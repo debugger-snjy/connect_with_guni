@@ -320,7 +320,7 @@ function AdminOperations() {
                                                         </table>
                                                     </div>
                                                     <div className="modal-footer bg-dark">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -377,8 +377,8 @@ function AdminOperations() {
                                             </div>
                                         </div>
                                         <div className="modal-footer bg-dark">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddAdminForm").reset(); }}>Close</button>
-                                            <button type="submit" className="btn btn-primary" onClick={AddAdminAPI}>Submit Form</button>
+                                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => { document.getElementById("AddAdminForm").reset(); }}>Close</button>
+                                            <button type="submit" className="btn btn-success" onClick={AddAdminAPI}>Submit Form</button>
                                         </div>
                                     </form>
 

@@ -330,13 +330,53 @@ const NoteState = (props) => {
 
     }
 
+    const AddRecentAccessedAPI = async (description, link, timestamp) => {
+        
+        // Adding the API Call to add the notes into the Database
+        const response = await fetch(`${host}/api/${sessionStorage.getItem("role")}/recentaccessed/add`, {
+            method: "POST", // As fetchallnotes is a GET method
+
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+
+                // Adding the auth-token hardcore till now !
+                "auth-token": sessionStorage.getItem("token"),
+            },
+
+            body: JSON.stringify({ description, link, timestamp })
+        });
+
+        // parses JSON response into native JavaScript objects and using await as the function is asynchronus function
+        const addRecentAccessed = await response.json();
+
+        // Checking
+        if(addRecentAccessed.status !== "success"){
+            showAlert("Error","Updating Recent Accessed List","alert-danger")
+        }
+
+    }
+
+    // Function to add the Recently Accessed
+    const updateRecentlyAccessed = (description, link) => {
+
+        // Calling the API to update the Recent Activity :
+        // TODO : Add these recent Activities in the database !
+
+        const timestamp = new Date().toLocaleString();
+
+        // Function to Add the Recent Activity into the Database
+        AddRecentAccessedAPI(description, link, timestamp)
+    
+    };
+
     return (
 
         // we will pass all the things in value that we have to pass
         // Passing the State and function which will update it
         // Here, {state,updateState} ===> {state:state, updateState:updateState}
         // Passing the userNotes and updateNotes in the context
-        <NoteContext.Provider value={{ userNotes, alert, user, showAlert, addNote, editNote, deleteNote, fetchAllNotes, fetchUser, formattedDateTime, setuserInfo, moveToTop }}>
+        <NoteContext.Provider value={{ userNotes, alert, user, showAlert, addNote, editNote, deleteNote, fetchAllNotes, fetchUser, formattedDateTime, setuserInfo, moveToTop, updateRecentlyAccessed }}>
             {props.children}
         </NoteContext.Provider>
     );

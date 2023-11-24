@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InternalMenuBar from './InternalMenuBar'
 import NavBreadcrumb from './NavBreadcrumb'
+import NoteContext from '../Context/NoteContext';
+import { useLocation } from 'react-router-dom';
 
 function Attendance() {
+
+    // Using the Context API
+    const contextData = useContext(NoteContext);
+    let location = useLocation()
 
     const [userAttendance, setuserAttendance] = useState([])
 
@@ -35,6 +41,9 @@ function Attendance() {
             console.log(data.user.attendanceData)
             setuserAttendance(data.user.attendanceData)
         })
+
+        contextData.updateRecentlyAccessed('Attendance', `${location.pathname}`);
+
     }, [])
 
     return (

@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'; 
+import axios from 'axios';
 import InternalMenuBar from './InternalMenuBar'
 import subjectBg from "../Images/materials2.png"
 import SubjectItem from './Items/SubjectItem'
 import NavBreadcrumb from './NavBreadcrumb';
+import NoteContext from '../Context/NoteContext';
+import { useLocation } from 'react-router-dom';
 
 function Materials() {
 
-    const [data, setData] = useState({msg:"",status:"",semesterSubjects:[]});
+    // Using the Context API
+    const contextData = useContext(NoteContext);
+    let location = useLocation()
+
+    const [data, setData] = useState({ msg: "", status: "", semesterSubjects: [] });
     const userSem = JSON.parse(sessionStorage.getItem("user")).sem
 
     // Function to call the Fetch All Subject API for the user semester !
@@ -35,9 +41,11 @@ function Materials() {
     }
 
     useEffect(() => {
-        
+
         // Call the async function
         fetchAllSubjectAPI();
+
+        contextData.updateRecentlyAccessed('Materials', `${location.pathname}`);
 
         console.log(data.semesterSubjects)
     }, []); // The empty dependency array means this effect runs once, similar to componentDidMount

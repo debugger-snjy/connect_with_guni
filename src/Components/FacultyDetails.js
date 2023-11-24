@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InternalMenuBar from './InternalMenuBar'
 import NavBreadcrumb from './NavBreadcrumb'
 import femaleFaculty from "../Images/female_faculty.png"
 
 import maleFaculty from "../Images/male_faculty.png"
+import { useLocation } from 'react-router-dom'
+import NoteContext from '../Context/NoteContext'
 function FacultyDetails() {
+
+    let location = useLocation()
+    // Using the Context API
+    const contextData = useContext(NoteContext);
 
     const userrole = sessionStorage.getItem("role")
     const [userFaculty, setuserFaculty] = useState([])
@@ -38,6 +44,7 @@ function FacultyDetails() {
         getFacultiesInfo().then((data) => {
             console.log(data.faculties)
             setuserFaculty(data.faculties)
+            contextData.updateRecentlyAccessed('Faculty Info', `${location.pathname}`);
         })
     }, [])
 
@@ -81,13 +88,13 @@ function FacultyDetails() {
                                                                         {/* Printing the Email */}
                                                                         <tr>
                                                                             <td className='p-1'><i className="fa-solid fa-envelope fa-lg" style={{ "color": "#000000" }}></i></td>
-                                                                            <td className='p-1'><a href={`mailto:${faculty.email}`}><strong style={{ verticalAlign: "text-bottom" }}> {faculty.email}</strong></a></td>
+                                                                            <td className='p-1'><a href={`mailto:${faculty.email}`} target={'_blank'} ><strong style={{ verticalAlign: "text-bottom" }}> {faculty.email}</strong></a></td>
                                                                         </tr>
 
                                                                         {/* Printing the Contact Number */}
                                                                         <tr>
                                                                             <td className='p-1'><i className="fa-solid fa-phone fa-lg" style={{ "color": "#000000" }}></i></td>
-                                                                            <td className='p-1'><a href={`tel:${faculty.phone}`}><strong style={{ verticalAlign: "text-bottom" }}> {faculty.phone}</strong></a></td>
+                                                                            <td className='p-1'><a href={`tel:${faculty.phone}`} target={'_blank'} ><strong style={{ verticalAlign: "text-bottom" }}> {faculty.phone}</strong></a></td>
                                                                         </tr>
 
                                                                         {/* Printing the Cabin Location */}

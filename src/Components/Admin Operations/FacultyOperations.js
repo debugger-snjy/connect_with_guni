@@ -7,6 +7,7 @@ import facultyMaleImg from "../../Images/male_faculty.png"
 import facultyFemaleImg from "../../Images/female_faculty.png"
 
 function FacultyOperations() {
+    
     // Used to navigate things
     let navigateTo = useNavigate()
     let location = useLocation()
@@ -305,7 +306,7 @@ function FacultyOperations() {
                                                         </table>
                                                     </div>
                                                     <div className="modal-footer bg-dark">
-                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
